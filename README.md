@@ -1,4 +1,6 @@
-#dump go commands
+#dump navigation commands
+Commands to navigate a Plan 9 style dump
+
 Consists of two programs hist and yest and a package which supports both.
 The two commands hist and yest mirror the commands yesterday(1) (http://man.cat-v.org/plan_9/1/yesterday)
 and history(1) (http://man.cat-v.org/plan_9/1/history) from plan 9 with some peculiarities.
