@@ -6,8 +6,8 @@ The two commands hist and yest mirror the commands yesterday(1) (http://man.cat-
 and history(1) (http://man.cat-v.org/plan_9/1/history) from plan 9 with some peculiarities.
 Both programs expect two enviroment variables, containing paths separated by colons:
 
-	MAINROOT=/newage/NEWAGE:/bla:/ble
-	DUMPROOT=/dump:/asd:/e/a
+	export MAINROOT=/newage/NEWAGE:/bla:/ble
+	export DUMPROOT=/dump:/asd:/e/a
 
 The first directoy of each variable which exists will be used. MAINROOT has the root of the
 filesystem which is backed up by the dump. DUMPROOT is the root of the dump. Paths in the dump
