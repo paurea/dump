@@ -65,7 +65,7 @@ func Dprintf(format string, a ...interface{}) (n int, err error) {
 }
 
 func usage() {
-	log.Fatal("hist [-Dvc] [-ymdh] [file_path]")
+	log.Fatal("hist [-Dvc] [-ymdh] file_path")
 }
 
 type pathDump struct {

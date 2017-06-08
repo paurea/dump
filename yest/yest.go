@@ -35,7 +35,7 @@ func Dprintf(format string, a ...interface{}) (n int, err error) {
 }
 
 func usage() {
-	log.Fatal("yest [-y=n] [-m=n] [-d=n] [-h=n] [-D] [file_path]")
+	log.Fatal("yest [-y=n] [-m=n] [-d=n] [-h=n] [-D] file_path")
 }
 
 func main() {

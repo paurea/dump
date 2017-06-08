@@ -21,7 +21,7 @@ Directly inside the dump root there can be some files, which are ignored by this
 
 YEST(1)
 
-	yest [-y=n] [-m=n] [-d=n] [-h=n] [-D] [file_path]
+	yest [-y=n] [-m=n] [-d=n] [-h=n] [-D] file_path
 
 The command yest(1) prints the path of the backup file or directory for the path given as
 command line.
@@ -34,7 +34,7 @@ one requested. By default, yest prints yesterday's file (i.e. yest -d 1).
 
 HIST(1)
 
-	hist [-Dvc] [-ymdh] [file_path]
+	hist [-Dvc] [-ymdh] file_path
 
 Hist(1) prints the history of a path. by default if it represents a text file, it will print the diffs
 of the changes as the file was modified in history. If it is not a text file, or if the -c option is given
