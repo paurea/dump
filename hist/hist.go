@@ -344,7 +344,7 @@ func doDiffs(paths []string, dPath string) {
 			}
 		} else if currMeta[len(paths[i]):] != newMeta[len(paths[i]):] {
 			//using os.SameFile here is not what I want, I want only the metada *I* regularly change
-			fmt.Printf("#modific\t%s\n", newMeta)
+			fmt.Printf("#wstat\t%s\n", newMeta)
 		}
 		curr = new
 		currMeta = newMeta
