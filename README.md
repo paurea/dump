@@ -11,7 +11,7 @@ Both programs expect two enviroment variables, containing paths separated by col
 
 The first directoy of each variable which exists will be used. MAINROOT has the root of the
 filesystem which is backed up by the dump. DUMPROOT is the root of the dump. Paths in the dump
-are of the form	/dump/yyyy/dd/mm/hhmm/rootname/bla/bla where rootname is obtained from
+are of the form	/dump/yyyy/ddmm/hhmm/rootname/bla/bla where rootname is obtained from
 the MAINROOT path. An example:
 
 	/dump/2017/0510/1605/NEWAGE/paurea/
