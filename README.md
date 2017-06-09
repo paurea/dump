@@ -48,6 +48,6 @@ The -y -m -d -h options filters the history, considering one file or less per ye
 
  The option -D is for debugging the program itself.
 
+To install the commands:
 ```
-
-    go get github.com/paurea/dump
+	go get github.com/paurea/dump
