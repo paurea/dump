@@ -204,7 +204,7 @@ func (f *File) String() string {
 }
 
 func (f *File) isText() bool {
-	return strings.Contains(f.txt, fmt.Sprintf("%s", utf8.RuneError))
+	return !strings.ContainsRune(f.txt, utf8.RuneError)
 }
 
 func (f *File) isDir() bool {
@@ -281,7 +281,12 @@ func doDiffs(paths []string, dPath string) {
 			continue
 		}
 		if !mChangesFlag && !txtFlag {
-			onlyChanges = !curr.isText()
+			isBin := !curr.isText()
+			onlyChanges = isBin
+			if isBin {
+				Dprintf("binary file %s\n", curr.path);
+			}
+		
 		}
 		fmt.Printf("#create\t%s\n", curr)
 		if curr.isDir() && verbose {
@@ -315,7 +320,11 @@ func doDiffs(paths []string, dPath string) {
 			continue
 		}
 		if !mChangesFlag && !txtFlag {
-			onlyChanges = !new.isText()
+			isBin := !new.isText()
+			onlyChanges = isBin
+			if isBin {
+				Dprintf("binary file %s\n", new.path);
+			}
 		}
 
 		newMeta := fmt.Sprintf("%s", new)
