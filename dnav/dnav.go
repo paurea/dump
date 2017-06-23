@@ -27,12 +27,12 @@ type DumpDate struct {
 	years  int
 	months int
 	days   int
-	hours  int
+	hours  int	//1100 so the hours are /100 and minutes %100
 }
 
 //NewDumpDate creates a new DumpDate from the description.
 func NewDumpDate(years int, months int, days int, hours int) *DumpDate {
-	return &DumpDate{years, months, days, hours}
+	return &DumpDate{years, months, days, 100*hours}
 }
 
 func (d *DumpDate) SameYear(d2 *DumpDate) bool {
@@ -62,6 +62,7 @@ func Dprintf(format string, a ...interface{}) (n int, err error) {
 	return fmt.Fprintf(os.Stderr, "dnav: "+format, a...)
 }
 
+//only for offset...
 func SumDates(d1 DumpDate, d2 DumpDate) (ds DumpDate) {
 	ds.years = d1.years + d2.years
 	ds.months = d1.months + d2.months
@@ -71,17 +72,24 @@ func SumDates(d1 DumpDate, d2 DumpDate) (ds DumpDate) {
 }
 
 //just to make a comparison, needs to be monotonic
-func (d *DumpDate) hoursApprox() int {
+func (d *DumpDate) minsApprox() int {
 	ms := d.years*12 + d.months
 	ds := ms*31 + d.days
-	hs := ds*24 + d.hours
-	return hs
+	hs := ds*24 + d.hours/100
+	mins := hs*60 + d.hours%100
+	return mins
+}
+
+func (d *DumpDate) IsBefore(d2 DumpDate) bool {
+	mins := d.minsApprox()
+	mins2 := d2.minsApprox()
+	return mins < mins2
 }
 
 func (d *DumpDate) IsAfter(d2 DumpDate) bool {
-	h := d.hoursApprox()
-	h2 := d2.hoursApprox()
-	return h > h2
+	mins := d.minsApprox()
+	mins2 := d2.minsApprox()
+	return mins > mins2
 }
 
 //Convert a time into a DumpDate

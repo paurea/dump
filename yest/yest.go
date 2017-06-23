@@ -20,7 +20,7 @@ func rdFlags(tIval *dnav.DumpDate) {
 	ph := flag.Int("h", 0, "# hours ago")
 	db := flag.Bool("D", false, "debug flag")
 	flag.Parse()
-	*tIval = *dnav.NewDumpDate(-*py, -*pm, -*pd, -*ph)
+	*tIval = *dnav.NewDumpDate(-*py, -*pm, -*pd, -*ph*100)
 
 	dnav.Debug = *db
 	debug = *db

@@ -28,6 +28,8 @@ var (
 	monthly bool
 	daily   bool
 	hourly  bool
+
+	earliestPath string
 )
 
 func rdFlags() {
@@ -41,6 +43,9 @@ func rdFlags() {
 	m := flag.Bool("m", false, "filter monthly")
 	d := flag.Bool("d", false, "filter daily")
 	h := flag.Bool("h", true, "filter hourly")
+
+	
+	s := flag.String("s", "", "earliest path")
 	flag.Parse()
 
 	debug = *db
@@ -54,6 +59,9 @@ func rdFlags() {
 	monthly = *m
 	daily = *d
 	hourly = *h
+
+	earliestPath = *s
+
 }
 
 func Dprintf(format string, a ...interface{}) (n int, err error) {
@@ -65,7 +73,7 @@ func Dprintf(format string, a ...interface{}) (n int, err error) {
 }
 
 func usage() {
-	log.Fatal("hist [-Dvc] [-ymdh] file_path")
+	log.Fatal("hist [-Dvc] [-ymdh] [-s=earliestPath] file_path")
 }
 
 type pathDump struct {
@@ -97,7 +105,8 @@ func pathsBeforeRec(dDate dnav.DumpDate, root string) (paths []string, err error
 	return paths, nil
 }
 
-func pathsBefore(dDate dnav.DumpDate, roots dnav.Roots) (paths []string, err error) {
+
+func pathsBeforeFrom(dDate dnav.DumpDate, from dnav.DumpDate, roots  dnav.Roots) (paths []string, err error) {
 	paths, err = pathsBeforeRec(dDate, roots.DumpRoot)
 	ps := paths
 	paths = nil
@@ -107,6 +116,11 @@ func pathsBefore(dDate dnav.DumpDate, roots dnav.Roots) (paths []string, err err
 		if err2 != nil {
 			return nil, err2
 		}
+		if (&d).IsBefore(from) {
+			continue
+		}
+			
+
 		if (&d).IsAfter(dDate) {
 			continue
 		}
@@ -355,6 +369,7 @@ func main() {
 	var (
 		roots dnav.Roots
 		path  string
+		fromDate dnav.DumpDate
 	)
 
 	rdFlags()
@@ -377,6 +392,16 @@ func main() {
 	Dprintf("path %s\n", path)
 	dnav.RdRoots(&roots)
 	Dprintf("mainRoot: %v, dumpRoot: %v, rootName: %v\n", roots.MainRoot, roots.DumpRoot, roots.RootName)
+
+	if earliestPath != "" {
+		var err error
+		fromDate, err = dnav.ParseDumpPath(earliestPath, roots)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "bad earliest dump path")
+			usage()
+		}
+		Dprintf("earliest path %s, earliest date %s\n", earliestPath, fromDate)
+	}
 
 	t := time.Now()
 	dDate := dnav.TInDumpDate(t)
@@ -405,7 +430,7 @@ func main() {
 		dPath = dPath + "/" + roots.RootName + suff
 	}
 	dPath = filepath.Clean(dPath)
-	files, err := pathsBefore(dDate, roots)
+	files, err := pathsBeforeFrom(dDate, fromDate, roots)
 	if err != nil {
 		log.Fatal(err)
 	}
