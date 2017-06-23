@@ -99,6 +99,6 @@ func main() {
 		log.Fatal("could not find previous file in dump")
 	}
 
-	fmt.Printf(yestpath)
+	fmt.Println(yestpath)
 
 }
