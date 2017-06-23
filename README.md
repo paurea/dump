@@ -37,7 +37,7 @@ one requested. By default, yest prints yesterday's file (i.e. yest -d 1).
 
 HIST(1)
 
-	hist [-Dvc] [-ymdh] file_path
+	hist [-Dvc] [-ymdh]  [-s=earliestPath] file_path
 
 Hist(1) prints the history of a path. by default if it represents a text file, it will print the diffs
 of the changes as the file was modified in history. If it is not a text file, or if the -c option is given
@@ -45,6 +45,8 @@ it will print the history of creation, deletions and modifications of the file.
  The option -v adds extra information about the changes to the file or directory.
 
 The -y -m -d -h options filters the history, considering one file or less per year, month, day or hour.
+
+The -s=earliestPath option permits to consider recent history starting at earliestPath in the dump.
 
  The option -D is for debugging the program itself.
 
