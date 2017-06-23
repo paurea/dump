@@ -148,7 +148,7 @@ func fmtDiff(diffs []diffmatchpatch.Diff, curr *File, new *File) string {
 				diffStr += ">" + new.lines[i] + "\n"
 			}
 			if nlDiff == 0 {
-				diffStr += "^" + text + "^" + "\n"
+				//diffStr += "^" + text + "^" + "\n"
 				diffStr += ">" + new.lines[nlRight] + "\n" //TODO: SHOULD MERGE continuous runs
 			}
 			nlRight += nlDiff
@@ -159,7 +159,7 @@ func fmtDiff(diffs []diffmatchpatch.Diff, curr *File, new *File) string {
 				diffStr += "<" + curr.lines[i] + "\n"
 			}
 			if nlDiff == 0 {
-				diffStr += "^" + text + "^" + "\n"
+				//diffStr += "^" + text + "^" + "\n"
 				diffStr += "<" + curr.lines[nlLeft] + "\n" //TODO: SHOULD MERGE continuous runs
 			}
 			nlLeft += nlDiff
@@ -217,7 +217,7 @@ func (f *File) readDir() (txt string, err error) {
 		return "", err
 	}
 	for _, fi := range files {
-		fp := &File{path: f.path + "/" + fi.Name(), info: fi}
+		fp := &File{path: fi.Name(), info: fi}
 		txt += fmt.Sprintf("\t[]\t%s\n", fp)
 	}
 	return txt, nil
