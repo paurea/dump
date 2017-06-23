@@ -76,7 +76,7 @@ func TestParseDump(t *testing.T) {
 	}
 	dShould := *dnav.NewDumpDate(2017, 4, 15, 36)
 	if dShould != d {
-		t.Fatalf("should be equal %s and %s", d, dShould)
+		t.Fatalf("should be equal %s and %s", &d, &dShould)
 	}
 	d, err = dnav.ParseDumpPath(BadDumpPath, r)
 	if err == nil {

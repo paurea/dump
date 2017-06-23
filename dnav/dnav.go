@@ -32,7 +32,7 @@ type DumpDate struct {
 
 //NewDumpDate creates a new DumpDate from the description.
 func NewDumpDate(years int, months int, days int, hours int) *DumpDate {
-	return &DumpDate{years, months, days, 100*hours}
+	return &DumpDate{years, months, days, hours}
 }
 
 func (d *DumpDate) SameYear(d2 *DumpDate) bool {
@@ -181,7 +181,6 @@ func ParseDumpPath(path string, roots Roots) (d DumpDate, err error) {
 				return d, errors.New("bad hour")
 			}
 		}
-
 	}
 	Dprintf("dump date %s\n", &d)
 	return d, err
