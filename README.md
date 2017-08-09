@@ -2,7 +2,7 @@
 
 Commands to navigate a Plan 9 style dump.
 
-Consists of two programs hist and yest and a package which supports both.
+Consists of two programs **hist** and **yest** and a package which supports both.
 The two commands hist and yest mirror the commands [yesterday(1)](http://man.cat-v.org/plan_9/1/yesterday)
 and [history(1)](http://man.cat-v.org/plan_9/1/history) from plan 9 with some peculiarities.
 Both programs expect two enviroment variables, containing paths separated by colons:
@@ -10,8 +10,8 @@ Both programs expect two enviroment variables, containing paths separated by col
 	export MAINROOT=/newage/NEWAGE:/bla:/ble
 	export DUMPROOT=/dump:/asd:/e/a
 
-The first directoy of each variable which exists will be used. MAINROOT has the root of the
-filesystem which is backed up by the dump. DUMPROOT is the root of the dump. Paths in the dump
+The first directoy of each variable which exists will be used. **MAINROOT** has the root of the
+filesystem which is backed up by the dump. **DUMPROOT** is the root of the dump. Paths in the dump
 are of the form
 
 	/dump/yyyy/ddmm/hhmm/rootname/bla/bla
