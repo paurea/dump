@@ -1,11 +1,12 @@
 package dnav_test
 
 import (
-	"dump/dnav"
 	"fmt"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/paurea/dump/dnav"
 )
 
 func TestSameDate(t *testing.T) {
