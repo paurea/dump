@@ -1,5 +1,6 @@
-#dump navigation commands
-Commands to navigate a Plan 9 style dump
+# Dump navigation commands
+
+Commands to navigate a Plan 9 style dump.
 
 Consists of two programs hist and yest and a package which supports both.
 The two commands hist and yest mirror the commands yesterday(1) (http://man.cat-v.org/plan_9/1/yesterday)
@@ -22,7 +23,7 @@ where rootname is obtained from the MAINROOT path. An example:
 Directly inside the dump root there can be some files, which are ignored by this commands, 
 "current", "current_chk", "first" and "lost+found".
 
-YEST(1)
+# YEST(1)
 
 	yest [-y=n] [-m=n] [-d=n] [-h=n] [-D] file_path
 
@@ -35,7 +36,7 @@ one requested. By default, yest prints yesterday's file (i.e. yest -d 1).
 
  The option -D is for debugging the program itself.
 
-HIST(1)
+# HIST(1)
 
 	hist [-Dvc] [-ymdh]  [-s=earliestPath] file_path
 
@@ -50,6 +51,8 @@ The -s=earliestPath option permits to consider recent history starting at earlie
 
  The option -D is for debugging the program itself.
 
-To install the commands:
+# Installation
+
 ```
-	go get github.com/paurea/dump
+go get github.com/paurea/dump
+```
