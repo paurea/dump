@@ -3,8 +3,8 @@
 Commands to navigate a Plan 9 style dump.
 
 Consists of two programs hist and yest and a package which supports both.
-The two commands hist and yest mirror the commands yesterday(1) (http://man.cat-v.org/plan_9/1/yesterday)
-and history(1) (http://man.cat-v.org/plan_9/1/history) from plan 9 with some peculiarities.
+The two commands hist and yest mirror the commands [yesterday(1)](http://man.cat-v.org/plan_9/1/yesterday)
+and [history(1)](http://man.cat-v.org/plan_9/1/history) from plan 9 with some peculiarities.
 Both programs expect two enviroment variables, containing paths separated by colons:
 
 	export MAINROOT=/newage/NEWAGE:/bla:/ble
