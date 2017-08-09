@@ -1,7 +1,6 @@
 package main
 
 import (
-	"dump/dnav"
 	"flag"
 	"fmt"
 	"log"
@@ -9,6 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/paurea/dump/dnav"
 )
 
 var debug bool

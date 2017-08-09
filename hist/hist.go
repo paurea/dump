@@ -3,10 +3,8 @@ package main
 import (
 	"bytes"
 	"crypto/sha1"
-	"dump/dnav"
 	"flag"
 	"fmt"
-	"github.com/sergi/go-diff/diffmatchpatch"
 	"io/ioutil"
 	"log"
 	"os"
@@ -15,6 +13,9 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
+
+	"github.com/paurea/dump/dnav"
+	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
 var (
