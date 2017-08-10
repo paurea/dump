@@ -27,7 +27,7 @@ type DumpDate struct {
 	years  int
 	months int
 	days   int
-	hours  int	//1100 so the hours are /100 and minutes %100
+	hours  int //1100 so the hours are /100 and minutes %100
 }
 
 //NewDumpDate creates a new DumpDate from the description.

@@ -45,7 +45,6 @@ func rdFlags() {
 	d := flag.Bool("d", false, "filter daily")
 	h := flag.Bool("h", true, "filter hourly")
 
-	
 	s := flag.String("s", "", "earliest path")
 	flag.Parse()
 
@@ -106,8 +105,7 @@ func pathsBeforeRec(dDate dnav.DumpDate, root string) (paths []string, err error
 	return paths, nil
 }
 
-
-func pathsBeforeFrom(dDate dnav.DumpDate, from dnav.DumpDate, roots  dnav.Roots) (paths []string, err error) {
+func pathsBeforeFrom(dDate dnav.DumpDate, from dnav.DumpDate, roots dnav.Roots) (paths []string, err error) {
 	paths, err = pathsBeforeRec(dDate, roots.DumpRoot)
 	ps := paths
 	paths = nil
@@ -120,7 +118,6 @@ func pathsBeforeFrom(dDate dnav.DumpDate, from dnav.DumpDate, roots  dnav.Roots)
 		if (&d).IsBefore(from) {
 			continue
 		}
-			
 
 		if (&d).IsAfter(dDate) {
 			continue
@@ -299,9 +296,9 @@ func doDiffs(paths []string, dPath string) {
 			isBin := !curr.isText()
 			onlyChanges = isBin
 			if isBin {
-				Dprintf("binary file %s\n", curr.path);
+				Dprintf("binary file %s\n", curr.path)
 			}
-		
+
 		}
 		fmt.Printf("#create\t%s\n", curr)
 		if curr.isDir() && verbose {
@@ -338,7 +335,7 @@ func doDiffs(paths []string, dPath string) {
 			isBin := !new.isText()
 			onlyChanges = isBin
 			if isBin {
-				Dprintf("binary file %s\n", new.path);
+				Dprintf("binary file %s\n", new.path)
 			}
 		}
 
@@ -368,8 +365,8 @@ func doDiffs(paths []string, dPath string) {
 
 func main() {
 	var (
-		roots dnav.Roots
-		path  string
+		roots    dnav.Roots
+		path     string
 		fromDate dnav.DumpDate
 	)
 
