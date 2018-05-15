@@ -17,10 +17,17 @@ var debug bool
 func rdFlags(tIval *dnav.DumpDate) {
 	py := flag.Int("y", 0, "# years ago")
 	pm := flag.Int("m", 0, "# months ago")
-	pd := flag.Int("d", 1, "# days ago")
+	pd := flag.Int("d", 0, "# days ago")
 	ph := flag.Int("h", 0, "# hours ago")
 	db := flag.Bool("D", false, "debug flag")
 	flag.Parse()
+	nDateFl := flag.NFlag() 
+	if *db {
+		nDateFl--
+	}
+	if nDateFl == 0 {
+		*pd =1	//if no flags, yesterday means yesterday
+	}
 	*tIval = *dnav.NewDumpDate(-*py, -*pm, -*pd, -*ph*100)
 
 	dnav.Debug = *db
