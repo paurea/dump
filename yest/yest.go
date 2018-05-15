@@ -69,6 +69,7 @@ func main() {
 	Dprintf("mainRoot: %v, dumpRoot: %v, rootName: %v\n", roots.MainRoot, roots.DumpRoot, roots.RootName)
 
 	t := time.Now()
+	Dprintf("Now %v\n", t)
 	dDate := dnav.TimeAddDate(t, tIval)
 	isD := dnav.IsDump(path, roots)
 	if isD {
