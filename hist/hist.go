@@ -81,7 +81,8 @@ type pathDump struct {
 	os.FileInfo
 }
 
-func pathsBeforeRec(dDate dnav.DumpDate, root string) (paths []string, err error) {
+func pathsBeforeRec(dDate dnav.DumpDate, roots *dnav.Roots, root string, from dnav.DumpDate) (paths []string, err error) {
+
 	files, err := ioutil.ReadDir(root)
 	if err != nil {
 		return nil, err
@@ -91,14 +92,18 @@ func pathsBeforeRec(dDate dnav.DumpDate, root string) (paths []string, err error
 		fName := f.Name()
 		if _, err := strconv.Atoi(fName); err == nil {
 			found++
-			files, err := pathsBeforeRec(dDate, root+"/"+fName)
+			pathRec := root+"/"+fName
+			d, err := dnav.ParseDumpPath(pathRec, *roots)
+			if err != nil || (&d).IsBeforeSparse(from) {
+				continue
+			}
+			files, err := pathsBeforeRec(dDate, roots, pathRec, from)
 			if err == nil {
 				paths = append(paths, files...)
 			}
 		}
 	}
 	if found == 0 {
-
 		return []string{root}, nil
 	}
 
@@ -106,10 +111,12 @@ func pathsBeforeRec(dDate dnav.DumpDate, root string) (paths []string, err error
 }
 
 func pathsBeforeFrom(dDate dnav.DumpDate, from dnav.DumpDate, roots dnav.Roots) (paths []string, err error) {
-	paths, err = pathsBeforeRec(dDate, roots.DumpRoot)
+	Dprintf("pathsBeforeFrom\n")
+	paths, err = pathsBeforeRec(dDate, &roots, roots.DumpRoot, from)
 	ps := paths
 	paths = nil
 	lastD := dDate
+	Dprintf("filtering paths\n")
 	for _, p := range ps {
 		d, err2 := dnav.ParseDumpPath(p, roots)
 		if err2 != nil {
@@ -428,10 +435,12 @@ func main() {
 		dPath = dPath + "/" + roots.RootName + suff
 	}
 	dPath = filepath.Clean(dPath)
+	Dprintf("clean dPath %s\n", dPath)
+	Dprintf("pathsBeforeFrom dDate %s, fromDate %s, roots %s\n", &dDate, &fromDate, roots)
 	files, err := pathsBeforeFrom(dDate, fromDate, roots)
 	if err != nil {
 		log.Fatal(err)
 	}
-	//Dprintf(" %s\n", files)
+	Dprintf(" %s: %s\n", files, dPath)
 	doDiffs(files, dPath)
 }

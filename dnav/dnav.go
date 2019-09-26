@@ -93,6 +93,38 @@ func (d *DumpDate) IsAfter(d2 DumpDate) bool {
 	return mins > mins2
 }
 
+//just to make a comparison, needs to be monotonic, ignoring zeros
+func (d *DumpDate) minsApproxSparse(d2 *DumpDate) int {
+	ms := 0
+	if d2.years != 0 {
+		ms = d.years*12
+	}
+	if d2.months != 0 {
+		ms = ms + d.months
+	}
+	ds := ms*31
+	if d2.days != 0 {
+		ds = ds + d.days
+	}
+	//hours may be zero..., but not if days are zero
+	hs := ds*24
+	if d2.days != 0 {
+		hs = hs + d.hours/100
+	}
+	mins := hs*60
+	if d2.days != 0 {
+		mins = mins + d.hours%100
+	}
+	return mins
+}
+
+//ignoring zeros
+func (d *DumpDate) IsBeforeSparse(d2 DumpDate) bool {
+	mins := d.minsApproxSparse(&d2)
+	mins2 := d2.minsApproxSparse(d)
+	return mins < mins2
+}
+
 //Convert a time into a DumpDate
 func TInDumpDate(t time.Time) DumpDate {
 	return DumpDate{t.Year(), int(t.Month()), t.Day(), t.Hour()*100 + t.Minute()}
