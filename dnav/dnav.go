@@ -30,6 +30,7 @@ type DumpDate struct {
 	hours  int //1100 so the hours are /100 and minutes %100
 }
 
+
 //NewDumpDate creates a new DumpDate from the description.
 func NewDumpDate(years int, months int, days int, hours int) *DumpDate {
 	return &DumpDate{years, months, days, hours}
@@ -100,7 +101,7 @@ func TInDumpDate(t time.Time) DumpDate {
 //Add DumpDate to a time to obtain a DumpDate
 func TimeAddDate(t time.Time, deltaT DumpDate) DumpDate {
 	t2 := t.AddDate(deltaT.years, deltaT.months, deltaT.days)
-	hours := time.Duration(deltaT.hours) * time.Hour
+	hours := time.Duration(deltaT.hours/100) * time.Hour
 	t2 = t2.Add(hours)
 	return TInDumpDate(t2)
 }
@@ -159,14 +160,14 @@ func ParseDumpPath(path string, roots Roots) (d DumpDate, err error) {
 	}
 	lstNames := strings.Split(pathInDump, "/")
 	nNames := len(lstNames)
-	if nNames > 0 {
+	if nNames > 1 {
 		if d.years, err = strconv.Atoi(lstNames[1]); err != nil {
 			if lstNames[1] != roots.RootName {
 				return d, errors.New("bad year")
 			}
 		}
 	}
-	if nNames > 1 {
+	if nNames > 2 {
 		if d.months, err = strconv.Atoi(lstNames[2]); err != nil {
 			if lstNames[1] != roots.RootName {
 				return d, errors.New("bad month")
@@ -175,14 +176,13 @@ func ParseDumpPath(path string, roots Roots) (d DumpDate, err error) {
 		d.days = d.months % 100
 		d.months = d.months / 100
 	}
-	if nNames > 2 {
+	if nNames > 3 {
 		if d.hours, err = strconv.Atoi(lstNames[3]); err != nil {
 			if lstNames[1] != roots.RootName {
 				return d, errors.New("bad hour")
 			}
 		}
 	}
-	Dprintf("dump date %s\n", &d)
 	return d, err
 }
 
