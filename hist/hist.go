@@ -92,7 +92,7 @@ func pathsBeforeRec(dDate dnav.DumpDate, roots *dnav.Roots, root string, from dn
 		fName := f.Name()
 		if _, err := strconv.Atoi(fName); err == nil {
 			found++
-			pathRec := root+"/"+fName
+			pathRec := root + "/" + fName
 			d, err := dnav.ParseDumpPath(pathRec, *roots)
 			if err != nil || (&d).IsBeforeSparse(from) {
 				continue

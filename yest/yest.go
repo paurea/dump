@@ -21,12 +21,12 @@ func rdFlags(tIval *dnav.DumpDate) {
 	ph := flag.Int("h", 0, "# hours ago")
 	db := flag.Bool("D", false, "debug flag")
 	flag.Parse()
-	nDateFl := flag.NFlag() 
+	nDateFl := flag.NFlag()
 	if *db {
 		nDateFl--
 	}
 	if nDateFl == 0 {
-		*pd =1	//if no flags, yesterday means yesterday
+		*pd = 1 //if no flags, yesterday means yesterday
 	}
 	*tIval = *dnav.NewDumpDate(-*py, -*pm, -*pd, -*ph*100)
 
@@ -90,9 +90,9 @@ func main() {
 	if yestpath == roots.DumpRoot {
 		log.Fatal("could not find dump")
 	}
-	Dprintf("partial %s\n", yestpath)
+	Dprintf("partial %s, isD: %v\n", yestpath, isD)
 	if isD {
-		yestpath = yestpath + path[len(yestpath):]
+		yestpath = yestpath + "/" + roots.RootName + "/" + path[len(yestpath):]
 	} else {
 		suff := strings.TrimPrefix(path, roots.MainRoot)
 		Dprintf("suff %s\n", suff)

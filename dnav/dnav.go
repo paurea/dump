@@ -30,7 +30,6 @@ type DumpDate struct {
 	hours  int //1100 so the hours are /100 and minutes %100
 }
 
-
 //NewDumpDate creates a new DumpDate from the description.
 func NewDumpDate(years int, months int, days int, hours int) *DumpDate {
 	return &DumpDate{years, months, days, hours}
@@ -97,21 +96,21 @@ func (d *DumpDate) IsAfter(d2 DumpDate) bool {
 func (d *DumpDate) minsApproxSparse(d2 *DumpDate) int {
 	ms := 0
 	if d2.years != 0 {
-		ms = d.years*12
+		ms = d.years * 12
 	}
 	if d2.months != 0 {
 		ms = ms + d.months
 	}
-	ds := ms*31
+	ds := ms * 31
 	if d2.days != 0 {
 		ds = ds + d.days
 	}
 	//hours may be zero..., but not if days are zero
-	hs := ds*24
+	hs := ds * 24
 	if d2.days != 0 {
 		hs = hs + d.hours/100
 	}
-	mins := hs*60
+	mins := hs * 60
 	if d2.days != 0 {
 		mins = mins + d.hours%100
 	}
