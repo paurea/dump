@@ -92,7 +92,7 @@ func main() {
 	}
 	Dprintf("partial %s, isD: %v\n", yestpath, isD)
 	if isD {
-		yestpath = yestpath + "/" + roots.RootName + "/" + path[len(yestpath):]
+		yestpath = yestpath + path[len(yestpath):]
 	} else {
 		suff := strings.TrimPrefix(path, roots.MainRoot)
 		Dprintf("suff %s\n", suff)
